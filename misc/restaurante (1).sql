@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-07-2022 a las 13:48:40
+-- Tiempo de generación: 20-07-2022 a las 14:26:36
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.7
 
@@ -11,9 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
--- Elimina la base de datos si existe y la vuelve a crear
-DROP DATABASE IF EXISTS `restaurante`;
-CREATE DATABASE `restaurante`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -34,6 +31,14 @@ CREATE TABLE `carta` (
   `id_carta` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `carta`
+--
+
+INSERT INTO `carta` (`id_carta`, `nombre`) VALUES
+(1, 'carta1'),
+(2, 'carta2');
 
 -- --------------------------------------------------------
 
@@ -56,6 +61,14 @@ CREATE TABLE `formato` (
   `id_formato` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `formato`
+--
+
+INSERT INTO `formato` (`id_formato`, `nombre`) VALUES
+(1, 'formato1'),
+(2, 'formato2');
 
 -- --------------------------------------------------------
 
@@ -82,6 +95,14 @@ CREATE TABLE `plato` (
   `id_seccion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `plato`
+--
+
+INSERT INTO `plato` (`id_plato`, `nombre`, `descripcion`, `id_seccion`) VALUES
+(1, 'plato1', NULL, 1),
+(2, 'plato2', NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -92,6 +113,14 @@ CREATE TABLE `seccion` (
   `id_seccion` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `seccion`
+--
+
+INSERT INTO `seccion` (`id_seccion`, `nombre`) VALUES
+(1, 'seccion1'),
+(2, 'seccion2');
 
 --
 -- Índices para tablas volcadas
@@ -144,25 +173,25 @@ ALTER TABLE `seccion`
 -- AUTO_INCREMENT de la tabla `carta`
 --
 ALTER TABLE `carta`
-  MODIFY `id_carta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_carta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `formato`
+--
+ALTER TABLE `formato`
+  MODIFY `id_formato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
-  MODIFY `id_plato` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_plato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  MODIFY `id_seccion` int(11) NOT NULL AUTO_INCREMENT;
-  
---
--- AUTO_INCREMENT de la tabla `formato`
---
-ALTER TABLE `formato`
-  MODIFY `id_formato` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_seccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
