@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-07-2022 a las 14:26:36
+-- Tiempo de generación: 21-07-2022 a las 14:21:37
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.7
 
@@ -11,6 +11,9 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+-- Elimina la base de datos si existe y la vuelve a crear
+DROP DATABASE IF EXISTS `restaurante`;
+CREATE DATABASE `restaurante`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -51,6 +54,16 @@ CREATE TABLE `carta_seccion` (
   `id_seccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `carta_seccion`
+--
+
+INSERT INTO `carta_seccion` (`id_carta`, `id_seccion`) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +95,14 @@ CREATE TABLE `lineas_carta` (
   `precio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `lineas_carta`
+--
+
+INSERT INTO `lineas_carta` (`id_plato`, `id_formato`, `precio`) VALUES
+(1, 1, 9.99),
+(1, 2, 7.99);
+
 -- --------------------------------------------------------
 
 --
@@ -101,7 +122,8 @@ CREATE TABLE `plato` (
 
 INSERT INTO `plato` (`id_plato`, `nombre`, `descripcion`, `id_seccion`) VALUES
 (1, 'plato1', NULL, 1),
-(2, 'plato2', NULL, 1);
+(2, 'plato2', NULL, 1),
+(3, 'plato3', NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -120,7 +142,8 @@ CREATE TABLE `seccion` (
 
 INSERT INTO `seccion` (`id_seccion`, `nombre`) VALUES
 (1, 'seccion1'),
-(2, 'seccion2');
+(2, 'seccion2'),
+(3, 'seccion3');
 
 --
 -- Índices para tablas volcadas
@@ -185,13 +208,13 @@ ALTER TABLE `formato`
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
-  MODIFY `id_plato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_plato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  MODIFY `id_seccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_seccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
