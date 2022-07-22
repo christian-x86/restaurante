@@ -80,8 +80,9 @@ CREATE TABLE `formato` (
 --
 
 INSERT INTO `formato` (`id_formato`, `nombre`) VALUES
-(1, 'formato1'),
-(2, 'formato2');
+(1, 'ración'),
+(2, 'media ración'),
+(3, 'tapa');
 
 -- --------------------------------------------------------
 
@@ -100,8 +101,16 @@ CREATE TABLE `lineas_carta` (
 --
 
 INSERT INTO `lineas_carta` (`id_plato`, `id_formato`, `precio`) VALUES
-(1, 1, 9.99),
-(1, 2, 7.99);
+(10, 1, '17.53'),
+(2, 2, '5.35'),
+(3, 2, '16.91'),
+(2, 1, '4.20'),
+(6, 1, '5.95'),
+(7, 3, '16.35'),
+(4, 2, '18.93'),
+(8, 1, '12.99'),
+(8, 2, '15.68'),
+(8, 3, '3.62');
 
 -- --------------------------------------------------------
 
@@ -121,9 +130,16 @@ CREATE TABLE `plato` (
 --
 
 INSERT INTO `plato` (`id_plato`, `nombre`, `descripcion`, `id_seccion`) VALUES
-(1, 'plato1', NULL, 1),
-(2, 'plato2', NULL, 1),
-(3, 'plato3', NULL, 3);
+(1,'Lid Coffeecup 12oz D9542b', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 3),
+(2,'Guinea Fowl', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 3),
+(3,'Onions - Red', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 3),
+(4,'Lobster - Cooked', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 1),
+(5,'Beer - Sleemans Cream Ale', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 2),
+(6,'Quinoa', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 3),
+(7,'Cheese - Parmesan Cubes', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 2),
+(8,'Tea - Grapefruit Green Tea', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 3),
+(9,'Island Oasis - Banana Daiquiri', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 3),
+(10,'Wine - Ruffino Chianti', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 2);
 
 -- --------------------------------------------------------
 
