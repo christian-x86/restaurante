@@ -52,4 +52,4 @@ JOIN plato_seccion ON seccion.id_seccion = plato_seccion.id_seccion
 JOIN plato ON plato_seccion.id_plato=plato.id_plato
 JOIN lineas_carta ON plato.id_plato=lineas_carta.id_plato
 JOIN formato ON lineas_carta.id_formato=formato.id_formato
-ORDER BY plato.nombre, formato.nombre;
+ORDER BY carta.id_carta, seccion.id_seccion, plato.nombre, formato.id_formato;
