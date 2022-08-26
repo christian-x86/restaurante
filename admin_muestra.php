@@ -89,7 +89,7 @@
           echo $valor.", ".$key.", ";
           echo "<br>";
         }
-        echo "<form action='admin_editar_linea.php' method='post'><input type='hidden' name='id_plato' value=".$row['id_plato']."><input type='submit' value='Editar'></form>";
+        echo "<form action='admin_form_editar_plato.php' method='post'><input type='hidden' name='id_plato' value=".$row['id_plato']."><input type='submit' value='Editar'></form>";
     }
   } else {
     echo "0 results";
