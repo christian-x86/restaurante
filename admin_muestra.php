@@ -85,8 +85,8 @@
     // output data of each row
     while($row = $result->fetch_assoc()) {
       // var_dump($row);
-        foreach ($row as $key => $valor) {
-          echo $valor.", ".$key.", ";
+        foreach ($row as $key => $value) {
+          echo $value.", ".$key.", ";
           echo "<br>";
         }
         echo "<form action='admin_form_editar_plato.php' method='post'><input type='hidden' name='id_plato' value=".$row['id_plato']."><input type='submit' value='Editar'></form>";

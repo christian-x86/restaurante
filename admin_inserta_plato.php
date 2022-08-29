@@ -17,7 +17,8 @@ $descripcion=$_POST["descripcion"];
 $sql = "INSERT INTO plato (nombre, descripcion) VALUES (?, ?)"; // SQL with parameters
 $stmt = $conn->prepare($sql); 
 $stmt->bind_param("ss", $nombre, $descripcion);
-$stmt->execute();
+
+$se=$stmt->execute();
 
 ?>
 
@@ -30,6 +31,16 @@ $stmt->execute();
     <title>Admin. Inserta Plato</title>
 </head>
 <body>
-    <p>Plato insertado</p>
+    <p>
+      <?php
+      if (false===$se) {
+        die("execute() failed: ". htmlspecialchars($stmt->error));
+      }else{
+        echo "New record created  successfully.";
+      }
+      
+      $stmt->close();
+      ?>
+    </p>
 </body>
 </html>
