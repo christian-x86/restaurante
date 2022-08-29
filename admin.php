@@ -22,5 +22,5 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result(); // get the mysqli result
 $user = $result->fetch_assoc(); // fetch data 
-var_dump($user);  
+var_dump($user);
 ?>
