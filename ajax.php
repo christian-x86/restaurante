@@ -29,27 +29,29 @@
 
     <form action="">
         <select name="customers" onchange="showCustomer(this.value)">
-        <option value="">Selecciona carta</option>
+            <option value="" disabled selected>Selecciona carta</option>
+            <option value="0" >Todas las cartas</option>
 
-        <?php
-        if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-            echo "<option value='".$row["id_carta"]."'>".$row["nombre"]."</option>";
+            <?php
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                echo "<option value='".$row["id_carta"]."'>".$row["nombre"]."</option>";
+                }
+            } else {
+                echo "0 results";
             }
-        } else {
-            echo "0 results";
-        }
-        $conn->close();
-        ?>
+            $conn->close();
+            ?>
 
         </select>
     </form>
 
     <br>
-    <div id="txtHint">Customer info will be listed here...</div>
+    <div id="txtHint">Info will be listed here...</div>
 
     <script>
+    
     function showCustomer(str) {
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
