@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,13 +12,13 @@
     <title><?php bloginfo( 'name' ); ?></title>
     <?php wp_head(); ?>
 </head>
-<body>
+<body <?php body_class(); ?>>
 
     <header>
         
         <div class="logo">
 
-            <img src=" <?php echo get_template_directory_uri();?> /img/logo.jpg">
+        <a href="<?php echo home_url(); ?>"><img src=" <?php echo get_template_directory_uri();?> /img/logo.jpg"></a>
 
         </div>
 

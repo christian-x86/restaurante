@@ -85,6 +85,4 @@
 
     <!-- fin centro -->
 
-    <!-- empieza footer -->
-
 <?php get_footer(); ?>
