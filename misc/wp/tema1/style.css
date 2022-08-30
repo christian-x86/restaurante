@@ -1,0 +1,19 @@
+/*
+Theme name: A
+Author: A
+Author URI: 
+Version: 1.0
+Description: aaaa
+*/
+
+h2, h1, p, div{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a{
+    color: black;
+}
+
+a:visited{
+    color: black;
+}
