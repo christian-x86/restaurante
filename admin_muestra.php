@@ -59,16 +59,20 @@
   <?php
   include("conexion.php");
 
-  if ($_POST["carta"]==0 && $_POST["seccion"]==0) {
-    $condicion="";
-  }elseif ($_POST["carta"]==0) {
-    $condicion="WHERE seccion.id_seccion=".$_POST["seccion"];
-  }elseif ($_POST["seccion"]==0) {
-    $condicion="WHERE carta.id_carta=".$_POST["carta"];
-  }else {
-    $condicion="WHERE carta.id_carta=".$_POST["carta"]." AND seccion.id_seccion=".$_POST["seccion"];
+  $condicion="";
+
+  if ($_POST) {
+    if ($_POST["carta"]==0 && $_POST["seccion"]==0) {
+      $condicion="";
+    }elseif ($_POST["carta"]==0) {
+      $condicion="WHERE seccion.id_seccion=".$_POST["seccion"];
+    }elseif ($_POST["seccion"]==0) {
+      $condicion="WHERE carta.id_carta=".$_POST["carta"];
+    }else {
+      $condicion="WHERE carta.id_carta=".$_POST["carta"]." AND seccion.id_seccion=".$_POST["seccion"];
+    }
   }
- 
+
     $sql2 = "SELECT carta.nombre AS `Carta`, seccion.nombre AS `Sección`, plato.id_plato, plato.nombre AS `Nombre del plato`, formato.nombre AS `Formato`, lineas_carta.precio
     FROM carta
     JOIN seccion ON carta.id_carta = seccion.id_carta
