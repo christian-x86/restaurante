@@ -42,6 +42,7 @@ CREATE TABLE `carta` (
 --
 
 CREATE TABLE `carta_seccion` (
+  `id_carta_seccion` int(11) NOT NULL,
   `id_carta` int(11) NOT NULL,
   `id_seccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -64,6 +65,7 @@ CREATE TABLE `formato` (
 --
 
 CREATE TABLE `lineas_carta` (
+  `id_lineas_carta` int(11) NOT NULL,
   `id_plato` int(11) NOT NULL,
   `id_formato` int(11) NOT NULL,
   `precio` float NOT NULL
@@ -107,7 +109,8 @@ ALTER TABLE `carta`
 -- Indices de la tabla `carta_seccion`
 --
 ALTER TABLE `carta_seccion`
-  ADD PRIMARY KEY (`id_carta`,`id_seccion`),
+  ADD PRIMARY KEY (`id_carta_seccion`),
+  ADD KEY `id_carta` (`id_carta`),
   ADD KEY `id_seccion` (`id_seccion`);
 
 --
@@ -120,7 +123,8 @@ ALTER TABLE `formato`
 -- Indices de la tabla `lineas_carta`
 --
 ALTER TABLE `lineas_carta`
-  ADD PRIMARY KEY (`id_plato`,`id_formato`),
+  ADD PRIMARY KEY (`id_lineas_carta`),
+  ADD KEY `id_plato` (`id_plato`),
   ADD KEY `id_formato` (`id_formato`);
 
 --
@@ -163,6 +167,16 @@ ALTER TABLE `seccion`
 --
 ALTER TABLE `formato`
   MODIFY `id_formato` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `formato`
+--
+ALTER TABLE `carta_seccion`
+  MODIFY `id_carta_seccion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `formato`
+--
+ALTER TABLE `lineas_carta`
+  MODIFY `id_lineas_carta` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

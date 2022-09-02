@@ -10,7 +10,7 @@
     <?php
     var_dump($_POST);
     ?>
-    <form action="admin_editar_plato.php" method="post">
+    <form action="admin_plato_editar.php" method="post">
     <?php
     include("conexion.php");
   

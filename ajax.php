@@ -28,7 +28,7 @@
 
 
     <form action="">
-        <select name="carta" onchange="showCustomer(this.value)">
+        <select name="carta" onchange="showCarta(this.value)">
             <option value="0" selected>Todas las cartas</option>
 
             <?php
@@ -82,7 +82,7 @@
 
     <script>
     
-    function showCustomer(str) {
+    function showCarta(str) {
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -91,7 +91,7 @@
     xhttp.onload = function() {
         document.getElementById("txtHint").innerHTML = this.responseText;
     }
-    xhttp.open("GET", "getcustomer.php?q="+str);
+    xhttp.open("GET", "getcarta.php?q="+str);
     xhttp.send();
     }
     </script>
