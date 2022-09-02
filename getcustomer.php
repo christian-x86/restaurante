@@ -31,16 +31,14 @@ $stmt->execute();
 $result = $stmt->get_result(); // get the mysqli result
 $stmt->close();
 
-$user = $result->fetch_assoc(); // fetch data 
-
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
       // var_dump($row);
-        foreach ($row as $key => $value) {
-          echo $key.": <b>".$value."</b> | ";
-        }
-        echo "<br>";
+      foreach ($row as $key => $value) {
+        echo $key.": <b>".$value."</b> | ";
+      }
+      echo "<br>";
     }
   } else {
     echo "0 results";
