@@ -91,7 +91,7 @@
     xhttp.onload = function() {
         document.getElementById("txtHint").innerHTML = this.responseText;
     }
-    xhttp.open("GET", "getcarta.php?q="+str);
+    xhttp.open("GET", "get_carta.php?q="+str);
     xhttp.send();
     }
     </script>
