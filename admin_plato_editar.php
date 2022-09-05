@@ -13,7 +13,7 @@
       
       include("conexion.php");
 
-      $sql = "UPDATE plato SET nombre='".$_POST["nombre"]."', descripcion='".$_POST["descripcion"]."' WHERE id_plato=".$_POST["id_plato"].";";
+      $sql = "UPDATE plato SET nombre='".$_POST["nombre"]."', descripcion='".$_POST["descripcion"]."', id_seccion='".$_POST["id_seccion"]."' WHERE id_plato=".$_POST["id_plato"].";";
       
       if ($conn->query($sql) === TRUE) {
         echo "Record updated successfully";

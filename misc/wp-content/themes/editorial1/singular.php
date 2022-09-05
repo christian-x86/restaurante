@@ -24,7 +24,7 @@
 									endif;
 									?>
 
-									-->
+									
 
 									<!-- <span class="image main"><img src="images/pic11.jpg" alt="" /></span>
 

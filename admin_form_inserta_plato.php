@@ -12,6 +12,28 @@
     <input type="text" name="nombre" id="nomber">
     <label for="descripcion">Descripción: </label>
     <input type="text" name="descripcion" id="descripcion">
+
+    <label for="nombre">Sección: </label>
+    <select name="seccion">
+      <option value="0" id="select">Selecciona sección</option>
+      <?php
+      include("conexion.php");
+      $sql1 = "SELECT id_seccion, nombre FROM seccion";
+      $result = $conn->query($sql1);
+
+      if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          echo "<option value='".$row["id_seccion"]."' >".$row["nombre"]."</option>";
+        }
+      } else {
+        echo "0 results";
+      }
+      $conn->close();
+      ?>
+
+    </select>
+
     <input type="submit" value="Enviar">
   </form>
 </body>

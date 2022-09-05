@@ -33,8 +33,8 @@
 
     </select>
 
-    <select name="seccion" id="seccion">
-      <option value="0" id="select">Selecciona sección</option>
+    <select name="id_seccion" id="id_seccion">
+      <option value="0" >Selecciona sección</option>
       <?php
       include("conexion.php");
       $sql1 = "SELECT id_seccion, nombre FROM seccion";
@@ -43,7 +43,7 @@
       if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-          echo "<option value='".$row["id_seccion"]."' id='select'>".$row["nombre"]."</option>";
+          echo "<option value='".$row["id_seccion"]."'>".$row["nombre"]."</option>";
         }
       } else {
         echo "0 results";
@@ -62,22 +62,22 @@
   $condicion="";
 
   if ($_POST) {
-    if ($_POST["carta"]==0 && $_POST["seccion"]==0) {
+    if ($_POST["carta"]==0 && $_POST["id_seccion"]==0) {
       $condicion="";
     }elseif ($_POST["carta"]==0) {
-      $condicion="WHERE seccion.id_seccion=".$_POST["seccion"];
-    }elseif ($_POST["seccion"]==0) {
+      $condicion="WHERE seccion.id_seccion=".$_POST["id_seccion"];
+    }elseif ($_POST["id_seccion"]==0) {
       $condicion="WHERE carta.id_carta=".$_POST["carta"];
     }else {
-      $condicion="WHERE carta.id_carta=".$_POST["carta"]." AND seccion.id_seccion=".$_POST["seccion"];
+      $condicion="WHERE carta.id_carta=".$_POST["carta"]." AND seccion.id_seccion=".$_POST["id_seccion"];
     }
   }
 
     $sql2 = "SELECT carta.nombre AS `Carta`, seccion.nombre AS `Sección`, plato.id_plato, plato.nombre AS `Nombre del plato`, formato.nombre AS `Formato`, lineas_carta.precio
     FROM carta
-    JOIN seccion ON carta.id_carta = seccion.id_carta
-    JOIN plato_seccion ON seccion.id_seccion = plato_seccion.id_seccion
-    JOIN plato ON plato_seccion.id_plato=plato.id_plato
+    JOIN carta_seccion ON carta.id_carta = carta_seccion.id_carta
+    JOIN seccion ON carta_seccion.id_seccion = seccion.id_seccion
+    JOIN plato ON seccion.id_seccion=plato.id_seccion
     JOIN lineas_carta ON plato.id_plato=lineas_carta.id_plato
     JOIN formato ON lineas_carta.id_formato=formato.id_formato
     ".$condicion."

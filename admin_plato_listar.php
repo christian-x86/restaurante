@@ -22,7 +22,12 @@
           echo $key.": ".$value;
           echo "<br>";
         }
-        echo "<form action='admin_plato_form_editar.php' method='post'><input type='hidden' name='id_plato' value=".$row['id_plato']."><input type='submit' value='Editar'></form>";
+        echo "
+        <form action='admin_plato_form_editar.php' method='post'>
+          <input type='hidden' name='id_plato' value=".$row['id_plato'].">
+          <input type='hidden' name='id_seccion' value=".$row['id_seccion'].">
+          <input type='submit' value='Editar'>
+        </form>";
         echo "<br>";
     }
   } else {

@@ -1,22 +1,13 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "restaurante2";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+include('conexion.php');
 
 $nombre=$_POST["nombre"];
 $descripcion=$_POST["descripcion"];
+$seccion=$_POST["seccion"];
 
-$sql = "INSERT INTO plato (nombre, descripcion) VALUES (?, ?)"; // SQL with parameters
+$sql = "INSERT INTO plato (nombre, descripcion, id_seccion) VALUES (?, ?, ?)"; // SQL with parameters
 $stmt = $conn->prepare($sql); 
-$stmt->bind_param("ss", $nombre, $descripcion);
+$stmt->bind_param("ssi", $nombre, $descripcion, $seccion);
 
 $se=$stmt->execute();
 
