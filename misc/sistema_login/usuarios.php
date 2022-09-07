@@ -14,7 +14,6 @@
 
     $result->fetch_assoc();
 
-    // lo recorremos
     // echo "<pre>";
     // foreach ($result as $key => $value) {
     //     var_dump($value);
