@@ -14,19 +14,24 @@
     </style>
 </head>
 <body>
+    <?php
+    include('conexion.php');
+    $sql="SELECT * FROM movies WHERE Code=".$_GET["id"].";";
+    $result=$conn->query($sql);
+    $row=$result->fetch_assoc();
+    ?>
     <form action="" method="post" class="form-group">
         <label for="title" >Título: </label>
-        <input type="text" name="title" id="title" required class="form-control">
+        <input type="text" name="title" id="title" required class="form-control" value="<?php echo $row["Title"] ?>">
         <label for="rating">Calificación: </label>
-        <select name="rating" id="rating" class="form-control form-select" required>
-            <option disabled selected value="">Elige una upción</option>
-            <option value="PG">PG</option>
-            <option value="G">G</option>
-            <option value="PG-13">PG-13</option>
-            <option value="NC-17">NC-17</option>
+        <select name="rating" id="rating" class="form-control form-select">
+            <option value="PG" <?php if($row["Rating"]=="PG"){echo "selected";} ?>>PG</option>
+            <option value="G" <?php if($row["Rating"]=="G"){echo "selected";} ?>>G</option>
+            <option value="PG-13" <?php if($row["Rating"]=="PG-13"){echo "selected";} ?>>PG-13</option>
+            <option value="NC-17" <?php if($row["Rating"]=="NC-17"){echo "selected";} ?>>NC-17</option>
         </select>
         <label for="money">Recaudación: </label>
-        <input type="number" name="money" id="money" class="form-control">
+        <input type="number" name="money" id="money" class="form-control" value="<?php echo $row["Money"] ?>">
         <input type="submit" value="Enviar" class="btn btn-secondary">
     </form>
     <?php
@@ -35,12 +40,11 @@
         $rating=$_POST["rating"];
         $money=$_POST["money"];
     
-        include('conexion.php');
-        $sql="INSERT INTO movies (Title, Rating, Money) VALUES ('$title', '$rating', '$money');";
+        $sql="UPDATE movies SET Title='$title', Rating='$rating', Money='$money' WHERE Code=".$_GET["id"].";";
         
         if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
-            header('refresh:5 index.php');
+            echo "Success";
+            header("refresh:5 index.php");
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

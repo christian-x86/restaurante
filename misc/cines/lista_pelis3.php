@@ -15,28 +15,10 @@
 </head>
 <body>
 
-  <form action="" method="post">
-    <input type="hidden" name="a" value="1">
-    <input type="submit" value="a">
-  </form>
-  <form action="" method="post">
-    <input type="hidden" name="a" value="0">
-    <input type="submit" value="b">
-  </form>
   <?php
 
   include("conexion.php");
-  if ($_POST["a"]==1) {
-    $b=true;
-  }else {
-    $b=false;
-  }
-  if ($b) {
-    $condicion="LEFT JOIN movietheaters ON movies.Code=movietheaters.movie";
-  }else{
-    $condicion="";
-  }
-  $sql = "SELECT * FROM movies $condicion;";
+  $sql = "SELECT *, movies.Code AS id_pelicula, movietheaters.Code AS id_cine FROM movies LEFT JOIN movietheaters ON movies.Code=movietheaters.movie ;";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     ?>
@@ -46,11 +28,8 @@
           <th scope="col">Titulo</th>
           <th scope="col">Rating</th>
           <th scope="col">Money</th>
-          <?php
-          if ($b) {
-            echo "<th scope='col'>Sala de cine</th>";
-          }
-          ?>
+          <th scope="col">Sala de cine</th>
+          <th scope="col">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -60,11 +39,11 @@
         <tr>
           <td>".$row["Title"]."</td>
           <td>".$row["Rating"]."</td>
-          <td>".$row["Money"]."</td>";
-          if ($b) {
-            echo "<td>".$row["Name"]."</td>";
-          }
-      echo "</tr>";
+          <td>".$row["Money"]."</td>
+          <td>".$row["Name"]."</td>
+          <td><a href='editar_pelicula.php?id=".$row["id_pelicula"]."'>Editar</a> | <a href='borrar_pelicula.php?id=".$row["id_pelicula"]."'>Borrar</a></td>
+        </tr>
+      ";
     }
     ?>
       </tbody>

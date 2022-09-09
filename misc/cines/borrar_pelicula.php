@@ -8,8 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="lista_pelis.php">Mostrar peliculas</a><br>
-    <a href="lista_pelis2.php">Mostrar peliculas con cines</a><br>
-    <a href="lista_pelis3.php">Mostrar peliculas con cines (editar/borrar)</a><br>
+    <?php
+    include('conexion.php');
+    $sql="DELETE FROM movies WHERE Code=".$_GET["id"].";";
+    if ($conn->query($sql) === TRUE) {
+        echo "Success";
+        header("refresh:5 index.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $conn->close();
+    ?>
 </body>
 </html>
