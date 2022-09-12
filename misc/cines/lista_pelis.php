@@ -9,6 +9,7 @@
 </head>
 <body>
   <a href="add_movie.php" type="button" class="btn btn-secondary">Añadir pelicula</a>
+  <input type="text" name="filtro" id="filtro" onkeyup="filtrar();" placeholder="Buscar">
   <?php
 
   include("conexion.php");
@@ -99,6 +100,17 @@
         document.getElementById("txtHint").innerHTML = this.responseText;
     }
     xhttp.open("GET", "get_orden.php?campo="+campo+"&orden="+orden);
+    xhttp.send();
+  }
+
+  function filtrar(){
+    var filtro = document.getElementById("filtro").value;
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        document.getElementById("txtHint").innerHTML = this.responseText;
+    }
+    xhttp.open("GET", "get_filtro.php?q="+filtro);
     xhttp.send();
   }
 </script>
