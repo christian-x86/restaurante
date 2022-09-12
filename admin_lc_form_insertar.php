@@ -28,7 +28,7 @@
     // var_dump($resultado);
     ?>
     <form action="admin_lc_insertar.php" method="post" id="form1">
-        <select name="formato[]" id="formato">
+        <select name="formato[]" id="formato[0]" class="formato" onchange="cambia1()">
             <?php
             foreach ($resultado as $key => $value) {
                 echo "<option value='".$key."'>".$value."</option>";
@@ -47,12 +47,18 @@
         <?php echo json_encode($resultado); ?>;
         console.log(passedArray);
         // console.log(Object.keys(passedArray).length);
+        
+        var cont = 1;
 
         function anadir_input() {
             
+            
+
             var formato_select = document.createElement("select");
             formato_select.setAttribute("name", "formato[]");
-            formato_select.setAttribute("id", "formato");
+            formato_select.setAttribute("id", "formato["+cont+"]");
+            formato_select.setAttribute("onchange", "cambia1()");
+            cont++;
             
             for (let index = 1; index <= Object.keys(passedArray).length; index++) {
                 const element = passedArray[index];
@@ -74,8 +80,6 @@
             // evitar que se creen mas entradas que opciones hay
             var ele = document.getElementById('form1');
             var lastEle = ele[ ele.length-2 ];
-            console.log((ele.length-1)/2);
-            console.log(Object.keys(passedArray).length);
             if (!((ele.length-1)/2>Object.keys(passedArray).length-1)) {
                 
                 document.getElementById("form1").appendChild(formato_select);
@@ -97,6 +101,18 @@
                 lastEle.parentNode.removeChild(lastEle);
                 lastEle2.parentNode.removeChild(lastEle2);
             }
+        }
+
+        function cambia1(){
+            console.log(document.getElementById("formato[0]").value);
+            console.log(document.getElementById("formato[1]").value);
+            console.log(document.getElementById("formato[2]").value);
+            // document.getElementById("formato[0]").children[2].setAttribute("disabled", true);
+            // por hacer
+            // document.getElementById("formato[0]").children[document.getElementById("formato[0]").value].setAttribute("disabled", true);
+            // document.getElementById("formato[1]").children[document.getElementById("formato[1]").value].setAttribute("disabled", true);
+            // document.getElementById("formato[2]").children[document.getElementById("formato[2]").value].setAttribute("disabled", true);
+
         }
 
     </script>
