@@ -16,15 +16,15 @@
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     ?>
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" >
       <thead>
         <tr>
-          <th scope="col">Titulo</th>
-          <th scope="col">Rating</th>
-          <th scope="col">Money</th>
+          <th id="titulo" scope="col" onclick="reordenar('Title');" data-titulo="ASC">Titulo</th>
+          <th id="rating" scope="col" onclick="reordenar('Rating');" data-rating="ASC">Rating</th>
+          <th id="money" scope="col" onclick="reordenar('Money');" data-money="ASC">Money</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="txtHint">
     <?php
     while ($row = $result->fetch_assoc()) {
       echo "
@@ -46,6 +46,61 @@
   $conn->close();
 
   ?>
+<script>
 
+  function reordenar(campo) {
+    
+    switch (campo) {
+      case 'Title':
+        var orden=document.getElementById('titulo').dataset.titulo;
+        break;
+      case 'Rating':
+        var orden=document.getElementById('rating').dataset.rating;
+        break;
+      case 'Money':
+        var orden=document.getElementById('money').dataset.money;
+        break;
+      default:
+        break;
+    }
+
+    if (orden == "ASC") {
+      new_orden ="DESC";
+    }else{
+      new_orden="ASC";
+    }
+
+    switch (campo) {
+      case 'Title':
+        document.getElementById('titulo').dataset.titulo = new_orden;
+        document.getElementById('rating').dataset.rating = "ASC";
+        document.getElementById('money').dataset.money = "ASC";
+        break;
+      case 'Rating':
+        document.getElementById('rating').dataset.rating = new_orden;
+        document.getElementById('titulo').dataset.titulo = "ASC";
+        document.getElementById('money').dataset.money = "ASC";
+        break;
+      case 'Money':
+        document.getElementById('money').dataset.money = new_orden;
+        document.getElementById('titulo').dataset.titulo = "ASC";
+        document.getElementById('rating').dataset.rating = "ASC";
+        break;
+      default:
+        break;
+    }
+
+    if (campo == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    }
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        document.getElementById("txtHint").innerHTML = this.responseText;
+    }
+    xhttp.open("GET", "get_orden.php?campo="+campo+"&orden="+orden);
+    xhttp.send();
+  }
+</script>
 </body>
 </html>
