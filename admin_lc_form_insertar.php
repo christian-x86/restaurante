@@ -53,7 +53,6 @@
         function anadir_input() {
             
             
-
             var formato_select = document.createElement("select");
             formato_select.setAttribute("name", "formato[]");
             formato_select.setAttribute("id", "formato["+cont+"]");
@@ -104,15 +103,23 @@
         }
 
         function cambia1(){
-            console.log(document.getElementById("formato[0]").value);
-            console.log(document.getElementById("formato[1]").value);
-            console.log(document.getElementById("formato[2]").value);
+            // console.log(document.getElementById("formato[0]").value);
+            // console.log(document.getElementById("formato[1]").value);
+            // console.log(document.getElementById("formato[2]").value);
+
             // document.getElementById("formato[0]").children[2].setAttribute("disabled", true);
-            // por hacer
+
             // document.getElementById("formato[0]").children[document.getElementById("formato[0]").value].setAttribute("disabled", true);
             // document.getElementById("formato[1]").children[document.getElementById("formato[1]").value].setAttribute("disabled", true);
             // document.getElementById("formato[2]").children[document.getElementById("formato[2]").value].setAttribute("disabled", true);
 
+            // console.log(cont);
+            for (let index = 0; index < cont; index++) {
+                console.log(document.getElementById("formato["+index+"]").value);
+
+                // document.getElementById("formato[1]").children[1].setAttribute("disabled", true);
+                document.getElementById("formato["+index+"]").children[1].setAttribute("disabled", true);
+            }
         }
 
     </script>

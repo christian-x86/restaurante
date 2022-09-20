@@ -2,6 +2,8 @@
 // añade soporte miniaturas
 add_theme_support("post-thumbnails");
 
+add_theme_support("menus");
+
 // css
 /*
 function custom_theme_assets() {

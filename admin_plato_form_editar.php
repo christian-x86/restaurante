@@ -33,8 +33,8 @@
     <select name="id_seccion" id="id_seccion">
     <?php
     include("conexion.php");
-    $sql1 = "SELECT id_seccion, nombre FROM seccion";
-    $result = $conn->query($sql1);
+    $sql = "SELECT id_seccion, nombre FROM seccion";
+    $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
       // output data of each row

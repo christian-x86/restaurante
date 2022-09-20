@@ -27,8 +27,8 @@
           <input type='hidden' name='id_plato' value=".$row['id_plato'].">
           <input type='hidden' name='id_seccion' value=".$row['id_seccion'].">
           <input type='submit' value='Editar'>
-        </form>";
-        echo "<br>";
+        </form>
+        <br>";
     }
   } else {
     echo "0 results";

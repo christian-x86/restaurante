@@ -73,7 +73,7 @@
     }
   }
 
-    $sql2 = "SELECT carta.nombre AS `Carta`, seccion.nombre AS `Sección`, plato.id_plato, plato.nombre AS `Nombre del plato`, formato.nombre AS `Formato`, lineas_carta.precio
+    $sql2 = "SELECT carta.nombre AS `Carta`, seccion.id_seccion, seccion.nombre AS `Sección`, plato.id_plato, plato.nombre AS `Nombre del plato`, formato.id_formato, formato.nombre AS `Formato`, lineas_carta.precio
     FROM carta
     JOIN carta_seccion ON carta.id_carta = carta_seccion.id_carta
     JOIN seccion ON carta_seccion.id_seccion = seccion.id_seccion
@@ -84,16 +84,39 @@
     ORDER BY carta.id_carta, seccion.id_seccion, plato.nombre, formato.id_formato;";
 
   $result = $conn->query($sql2);
-  
+
+  $arrCarta = [];
+  $arrSeccion = [];
+  $arrPlato = [];
+
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      // var_dump($row);
-        foreach ($row as $key => $value) {
-          echo $key.": ".$value;
-          echo "<br>";
-        }
+
+      if (!in_array($row["Carta"], $arrCarta)) {
+        array_push($arrCarta, $row["Carta"]);
+        echo "<h1>".$row["Carta"]."</h1>";
+      }
+      
+      if (!in_array($row["Sección"], $arrSeccion)) {
+        array_push($arrSeccion, $row["Sección"]);
+        echo "<h2>".$row["Sección"]."</h2>";
+      }
+
+      if (!in_array($row["id_plato"], $arrPlato)) {
+        array_push($arrPlato, $row["id_plato"]);
+        echo "<h3>".$row["id_plato"]." | ".$row["Nombre del plato"]."</h3>
+        <form action='admin_plato_form_editar_lc.php' method='post'>
+          <input type='hidden' name='id_plato' value=".$row['id_plato'].">
+          <input type='hidden' name='id_seccion' value=".$row['id_seccion'].">
+          <input type='submit' value='Editar'>
+        </form>";
+        echo $row["id_formato"]." | ".$row["Formato"].": ".$row["precio"]." €";
         echo "<br>";
+      }else{
+        echo $row["id_formato"]." | ".$row["Formato"].": ".$row["precio"]." €";
+        echo "<br>";
+      }
     }
   } else {
     echo "0 results";
