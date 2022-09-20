@@ -25,8 +25,7 @@
         while($row = $result->fetch_assoc()) {
           if (!$impreso) {
             echo "
-            <br>
-            <label for='id_plato'>id_plato: </label><input type='text' value='".$row["id_plato"]."' name='id_plato' id='id_plato'>
+            <input type='hidden' value='".$row["id_plato"]."' name='id_plato' id='id_plato'>
             <label for='nombre'>Nombre: </label><input type='text' value='".$row["nombre"]."' name='nombre'  id='nombre'>
             <label for='descripcion'>Descripción: </label><input value='".$row["descripcion"]."' name='descripcion'  id='descripcion'>";
             $impreso=true;
@@ -66,6 +65,7 @@
     ?>
     </select>
     <br>
+  
     <?php
 
 

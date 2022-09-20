@@ -10,37 +10,53 @@
     <?php
 
     if ($_POST) {
-      echo "<pre>";
-      var_dump($_POST);
-      echo "</pre>";
 
       include("conexion.php");
 
-      // $sql = "UPDATE plato SET nombre='".$_POST["nombre"]."', descripcion='".$_POST["descripcion"]."', id_seccion='".$_POST["id_seccion"]."' WHERE id_plato=".$_POST["id_plato"].";";
-      // $sql = "UPDATE lineas_carta SET id_formato='', precio='' WHERE id_lineas_carta='';";
-      for ($i=0; $i < count($_POST["formato"]); $i++) { 
+      $sql = "SELECT * FROM plato WHERE id_plato=".$_POST["id_plato"].";";
+      $result = $conn->query($sql);
+
+      if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+      }
+      // comprobamos si se ha dejado sin cambiar los campos nombre, descripcion y  seccion
+      if (!($_POST["nombre"] == $row["nombre"] && $_POST["descripcion"] == $row["descripcion"] && $_POST["id_seccion"] == $row["id_seccion"])) {
 
         $sql = "UPDATE plato SET nombre='".$_POST["nombre"]."', descripcion='".$_POST["descripcion"]."', id_seccion='".$_POST["id_seccion"]."' WHERE id_plato=".$_POST["id_plato"].";";
-
-        // if ($conn->query($sql) === TRUE) {
-        //   echo "Record updated successfully";
-        // } else {
-        //   echo "Error updating record: " . $conn->error;
-        // }
-        echo "<br>";
-        echo $_POST["formato"][$i];
-        echo "<br>";
-        echo $_POST["precio"][$i];
-        echo "<br>";
+        // ejecutamos el update
+        if ($conn->query($sql) === TRUE) {
+          echo "Datos del plato actualizados satisfactoriamente";
+          echo "<br>";
+        } else {
+          echo "Error updating record: " . $conn->error;
+          echo "<br>";
+        }
       }
 
-      // echo $sql;
+      for ($i=0; $i < count($_POST["id_lineas_carta"]); $i++) {
 
-      // if ($conn->query($sql) === TRUE) {
-      //   echo "Record updated successfully";
-      // } else {
-      //   echo "Error updating record: " . $conn->error;
-      // }
+        $sql = "SELECT * FROM lineas_carta WHERE id_lineas_carta=".$_POST["id_lineas_carta"][$i].";";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+            // vemos si se ha dejado sin editar el select de formato o el precio
+            if (!($_POST["id_lineas_carta"][$i]==$row["id_lineas_carta"] && $_POST["formato"][$i]==$row["id_formato"] && $_POST["precio"][$i]==$row["precio"])) {
+
+              $sql = "UPDATE lineas_carta SET id_formato='".$_POST["formato"][$i]."', precio='".$_POST["precio"][$i]."' WHERE id_lineas_carta=".$_POST["id_lineas_carta"][$i].";";
+              // ejecutamos el update
+              if ($conn->query($sql) === TRUE) {
+                echo "Datos de la línea de carta actualizados satisfactoriamente";
+                echo "<br>";
+              } else {
+                echo "Error updating record: " . $conn->error;
+                echo "<br>";
+              }
+              
+            }
+          }
+        }
+      }
       
       $conn->close();
     }
