@@ -19,6 +19,10 @@
       if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
       }
+
+      // flag comprobar si no se ha modificado
+      $unmodified=false;
+
       // comprobamos si se ha dejado sin cambiar los campos nombre, descripcion y  seccion
       if (!($_POST["nombre"] == $row["nombre"] && $_POST["descripcion"] == $row["descripcion"] && $_POST["id_seccion"] == $row["id_seccion"])) {
 
@@ -31,8 +35,12 @@
           echo "Error updating record: " . $conn->error;
           echo "<br>";
         }
+      }else{
+        $unmodified=true;
       }
 
+      // flag comprobar si no se ha modificado
+      $unmodified1=false;
       for ($i=0; $i < count($_POST["id_lineas_carta"]); $i++) {
 
         $sql = "SELECT * FROM lineas_carta WHERE id_lineas_carta=".$_POST["id_lineas_carta"][$i].";";
@@ -53,11 +61,15 @@
                 echo "<br>";
               }
               
+            }else{
+              $unmodified1=true;
             }
           }
         }
       }
-      
+      if ($unmodified && $unmodified1) {
+        echo "No se han realizado modificaciones";
+      }
       $conn->close();
     }
     ?>

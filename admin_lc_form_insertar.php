@@ -16,9 +16,9 @@
 
     if ($result->num_rows > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $resultado[$row["id_formato"]]= $row["nombre"];
-    }
+        while($row = $result->fetch_assoc()) {
+            $resultado[$row["id_formato"]]= $row["nombre"];
+        }
     } else {
     echo "0 results";
     }

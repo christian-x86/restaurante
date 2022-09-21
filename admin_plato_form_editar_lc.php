@@ -68,41 +68,41 @@
   
     <?php
 
+    $sql = "SELECT * FROM formato;";
 
-      $sql = "SELECT * FROM formato;";
+    $result = $conn->query($sql);
 
-      $result = $conn->query($sql);
-
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          // lista de todos los formatos
-          $arrFormatos[] = ["id_formato"=>$row["id_formato"], "nombre"=>$row["nombre"]];
-      } 
-      }else {
-        echo "0 results";
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        // lista de todos los formatos
+        $arrFormatos[] = ["id_formato"=>$row["id_formato"], "nombre"=>$row["nombre"]];
+    } 
+    }else {
+      echo "0 results";
+    }
+    // echo "<pre>";
+    // var_dump($arrFormatos);
+    // echo "</pre>";
+    $conn->close();
+    // contador para cambiar el nombre a los formatos (formato1, formato2, ...)
+    $cont=0;
+    foreach ($arrFormato as $value1) {
+      echo "<select name='formato[".$cont."]' id='formato'>";
+      
+      foreach ($arrFormatos as $value2) {
+        ?>
+        <option value='<?php echo $value2["id_formato"]; ?>' <?php if($value1["id_formato"]==$value2["id_formato"]){echo "selected";} ?>><?php echo $value2["nombre"]; ?></option>
+        <?php
       }
-      // echo "<pre>";
-      // var_dump($arrFormatos);
-      // echo "</pre>";
-      $conn->close();
-      // contador para cambiar el nombre a los formatos (formato1, formato2, ...)
-      $cont=0;
-      foreach ($arrFormato as $value1) {
-        echo "<select name='formato[".$cont."]' id='formato'>";
-        
-        foreach ($arrFormatos as $value2) {
-          ?>
-          <option value='<?php echo $value2["id_formato"]; ?>' <?php if($value1["id_formato"]==$value2["id_formato"]){echo "selected";} ?>><?php echo $value2["nombre"]; ?></option>
-          <?php
-        }
-        echo "</select>";
-        echo "<input type='number' step='0.01' name='precio[".$cont."]' id='precio' value='".$value1["precio"]."'>";
-        echo "<input type='hidden' name='id_lineas_carta[".$cont."]' value='".$value1["id_lineas_carta"]."'>";
-        echo "<br>";
-        $cont++;
-      }
+      echo "</select>";
+      echo "<input type='number' step='0.01' name='precio[".$cont."]' id='precio' value='".$value1["precio"]."'>";
+      echo "<input type='hidden' name='id_lineas_carta[".$cont."]' value='".$value1["id_lineas_carta"]."'>";
+      echo "<br>";
+      $cont++;
+    }
 
+    echo "<a href='url.php?id_plato=".$_POST["id_plato"]."'>+ Asignar formato</a>"
     ?>
     <input type="submit" value="Enviar">
   </form>

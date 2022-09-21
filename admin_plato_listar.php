@@ -7,10 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-    include("conexion.php");
+  <?php
+  include("conexion.php");
 
-    $sql = "SELECT * FROM plato;";
+  $sql = "SELECT * FROM plato;";
 
   $result = $conn->query($sql);
   
@@ -34,6 +34,6 @@
     echo "0 results";
   }
   $conn->close();
-    ?>
+  ?>
 </body>
 </html>
