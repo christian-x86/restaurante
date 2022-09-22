@@ -10,6 +10,11 @@
 
             <h1><?php bloginfo( 'name' ); ?></h1>
 
+            <?php // Mostrar búsqueda
+            global $wp_query;
+            $encontrados= $wp_query->found_posts;
+            echo "<p>Hemos encontrado ".$encontrados." resultados.</p>";
+            ?>
             <section class="contenido">
 
                 <?php
