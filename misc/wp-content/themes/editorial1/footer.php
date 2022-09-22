@@ -24,6 +24,10 @@
 									<header class="major">
 										<h2>Menu</h2>
 									</header>
+									<?php 
+									// añade menu
+									wp_nav_menu('menu1');
+									?>
 									<ul>
 										<li><a href=" <?php echo home_url(); ?> ">Homepage</a></li>
 										<li><a href="contacto">Contacto</a></li>
@@ -61,15 +65,15 @@
 									</header>
 									<div class="mini-posts">
 										<article>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<a href="#" class="image"><img src="<?php echo get_template_directory_uri();?> /images/pic07.jpg" alt="" /></a>
 											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<a href="#" class="image"><img src="<?php echo get_template_directory_uri();?> /images/pic08.jpg" alt="" /></a>
 											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<a href="#" class="image"><img src="<?php echo get_template_directory_uri();?> /images/pic09.jpg" alt="" /></a>
 											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
 										</article>
 									</div>
@@ -91,6 +95,14 @@
 										Nashville, TN 00000-0000</li>
 									</ul>
 								</section>
+
+								<!-- Área de widget -->
+								<?php if ( is_active_sidebar( 'sidebar-ejemplo' ) ) : ?>
+										<div id="widget-area" class="widget-area">
+											<?php dynamic_sidebar( 'sidebar-ejemplo' ); ?>
+										</div>
+								<?php endif; ?>
+
 								<!-- Footer -->
 								<footer id="footer">
 									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
@@ -102,7 +114,6 @@
 			</div>
 
 		<!-- Scripts -->
-        <?php
-		wp_footer() ?>
+        <?php wp_footer() ?>
 	</body>
 </html>

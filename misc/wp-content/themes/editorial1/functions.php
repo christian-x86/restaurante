@@ -1,8 +1,8 @@
 <?php
-// añade soporte miniaturas
+// añade soporte
 add_theme_support("post-thumbnails");
-
 add_theme_support("menus");
+add_theme_support("widgets");
 
 // css
 /*
@@ -27,4 +27,19 @@ function my_init_method() {
  
 add_action('wp_enqueue_scripts', 'my_init_method');
 
+// Registrar sidebar
+function registrar_sidebar(){
+    register_sidebar(array(
+     'name' => 'Sidebar de ejemplo',
+     'id' => 'sidebar-ejemplo',
+     'description' => 'Descripción de ejemplo',
+     'class' => 'sidebar',
+     'before_widget' => '<div id="%1$s" class="widget %2$s"><article>',
+     'after_widget' => '</article></div>',
+     'before_title' => '<header class="major"><h2 class="widget-title">',
+     'after_title' => '</h2></header>',
+    ));
+  }
+  add_action( 'widgets_init', 'registrar_sidebar');
+  
 ?>
