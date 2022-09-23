@@ -85,7 +85,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <!-- <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.html" class="nav-item nav-link active">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="service.html" class="nav-item nav-link">Service</a>
@@ -101,19 +101,19 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
-            </div> -->
+            </div>
 
             <?php 
             // añade menu
             // wp_nav_menu('menu1');
 
             // menu
-            $argumentos = [
-                "menu"  => "Menu principal",
-                "container_id" => "menu",
-                "container_class" => "navbar-nav ms-auto p-4 p-lg-0"
-            ];
-            wp_nav_menu($argumentos);
+            // $argumentos = [
+            //     "menu"  => "menu-principal",
+            //     "container_id" => "menu",
+            //     "container_class" => "navbar-nav ms-auto p-4 p-lg-0"
+            // ];
+            // wp_nav_menu($argumentos);
             ?>
             
             <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
