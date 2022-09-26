@@ -25,6 +25,8 @@
                         "menu" => "menu-principal",
                         "container" => "",
                         "menu_class" => "navbar-nav ms-auto mb-2 mb-lg-0",
+                        'add_li_class'  => 'nav-item',
+                        'link_class'   => 'nav-link'
                     ];
                     wp_nav_menu($argumentos);
                     ?>

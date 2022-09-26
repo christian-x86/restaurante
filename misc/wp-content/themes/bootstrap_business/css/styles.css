@@ -11294,8 +11294,10 @@ textarea.form-control-lg {
   width: 4rem;
   font-size: 2rem;
 }
+
 /* --------------- */
-.menu-item {
+
+/* .menu-item {
   display: block;
   padding: 0.5rem 1rem;
   color: #495057;
@@ -11314,4 +11316,4 @@ textarea.form-control-lg {
 
 .current-menu-item a{
   color: rgba(255, 255, 255, 1);
-}
+} */
