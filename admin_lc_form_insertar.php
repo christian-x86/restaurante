@@ -43,6 +43,7 @@
 
     <script type="text/javascript">
         
+        // pasar array de php a js
         const passedArray = 
         <?php echo json_encode($resultado); ?>;
         console.log(passedArray);
