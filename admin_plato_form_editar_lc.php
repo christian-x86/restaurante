@@ -44,6 +44,7 @@
       // var_dump($arrFormato);
       // echo "</pre>";
     ?>
+    <label for="id_seccion">Sección:</label>
     <select name="id_seccion" id="id_seccion">
     <?php
     include("conexion.php");
@@ -113,13 +114,30 @@
       // array de php a js
       const formatos = 
       <?php echo json_encode($arrFormatos); ?>;
-      console.log(formatos);
-      console.log(Object.keys(formatos).length);
+      // console.log(formatos);
+      // console.log(Object.keys(formatos).length);
 
       const formato = 
       <?php echo json_encode($arrFormato); ?>;
-      console.log(formato);
-      console.log(Object.keys(formato).length);
+      // console.log(formato);
+      // console.log(Object.keys(formato).length);
+
+      const arrCambios = formato;
+
+      // Hacemos disable en los option que no sean los que seleccionamos
+      for (const iterator in formato) {
+        
+        $('select[name="formato['+iterator+']"]').change(function() {
+          arrCambios[iterator]["id_formato"]=$('select[name="formato['+iterator+']"]').val();
+          console.log(arrCambios);
+          for (const iterator2 in arrCambios) {
+            console.log(" a "+iterator+" | b "+iterator2);
+            if (iterator!=iterator2) {
+              $('select[name="formato['+iterator2+']"]').children('option[value="'+arrCambios[iterator]["id_formato"]+'"]').attr("disabled",true);
+            }
+          }
+        });
+      }
 
     });
   </script>
