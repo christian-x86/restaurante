@@ -1,142 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-  <title>Document</title>
-</head>
-<body>
-  <form action="admin_plato_editar_lc.php" method="post">
-    <?php
-    include("conexion.php");
-
-    $sql = "SELECT plato.id_plato, plato.nombre, plato.descripcion, plato.id_seccion, formato.id_formato, formato.nombre AS 'Formato', precio, id_lineas_carta
-    FROM plato JOIN lineas_carta ON plato.id_plato=lineas_carta.id_plato JOIN formato ON lineas_carta.id_formato=formato.id_formato
-    WHERE plato.id_plato=".$_POST["id_plato"].";";
-
-    $result = $conn->query($sql);
-
-    $arrFormato=[];
-    // bool para ver si se ya esta impreso el plato
-    $impreso=false;
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          if (!$impreso) {
-            echo "
-            <input type='hidden' value='".$row["id_plato"]."' name='id_plato' id='id_plato'>
-            <label for='nombre'>Nombre: </label><input type='text' value='".$row["nombre"]."' name='nombre'  id='nombre'>
-            <label for='descripcion'>Descripción: </label><input value='".$row["descripcion"]."' name='descripcion'  id='descripcion'>";
-            $impreso=true;
-          }
-          // asignamos la seccion a una variable para usarla en el select
-          $seccion1=$row["id_seccion"];
-          // lista de formatos para ese plato
-          $arrFormato[] = ["id_formato"=>$row["id_formato"], "precio"=>$row["precio"], "id_lineas_carta"=>$row["id_lineas_carta"]];
-        }
-      } else {
-        echo "0 results";
-      }
-      $conn->close();
-      // echo "<pre>";
-      // var_dump($arrFormato);
-      // echo "</pre>";
-    ?>
-    <label for="id_seccion">Sección:</label>
-    <select name="id_seccion" id="id_seccion">
-    <?php
-    include("conexion.php");
-    $sql = "SELECT id_seccion, nombre FROM seccion";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-      // output data of each row
-      while($row = $result->fetch_assoc()) {
-        if ($seccion1==$row["id_seccion"]) {
-          echo "<option value='".$row["id_seccion"]."' selected>".$row["nombre"]."</option>";
-        }else{
-          echo "<option value='".$row["id_seccion"]."'>".$row["nombre"]."</option>";
-        }
-      }
-    } else {
-      echo "0 results";
-    }
-
-    ?>
-    </select>
-    <br>
-  
-    <?php
-
-    $sql = "SELECT * FROM formato;";
-
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-      // output data of each row
-      while($row = $result->fetch_assoc()) {
-        // lista de todos los formatos
-        $arrFormatos[] = ["id_formato"=>$row["id_formato"], "nombre"=>$row["nombre"]];
-    } 
-    }else {
-      echo "0 results";
-    }
-    // echo "<pre>";
-    // var_dump($arrFormatos);
-    // echo "</pre>";
-    $conn->close();
-    // contador para cambiar el nombre a los formatos (formato1, formato2, ...)
-    $cont=0;
-    foreach ($arrFormato as $value1) {
-      echo "<select name='formato[".$cont."]' id='formato'>";
-      
-      foreach ($arrFormatos as $value2) {
-        ?>
-        <option value='<?php echo $value2["id_formato"]; ?>' <?php if($value1["id_formato"]==$value2["id_formato"]){echo "selected";} ?>><?php echo $value2["nombre"]; ?></option>
+<?php require_once('header.php'); ?>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <form action="admin_plato_editar_lc.php" method="post" class="form-group">
         <?php
-      }
-      echo "</select>";
-      echo "<input type='number' step='0.01' name='precio[".$cont."]' id='precio' value='".$value1["precio"]."'>";
-      echo "<input type='hidden' name='id_lineas_carta[".$cont."]' value='".$value1["id_lineas_carta"]."'>";
-      echo "<br>";
-      $cont++;
-    }
+        include("conexion.php");
 
-    echo "<a href='url.php?id_plato=".$_POST["id_plato"]."'>+ Asignar formato</a>"
-    ?>
-    <input type="submit" value="Enviar">
-  </form>
+        $sql = "SELECT plato.id_plato, plato.nombre, plato.descripcion, plato.id_seccion, formato.id_formato, formato.nombre AS 'Formato', precio, id_lineas_carta
+        FROM plato JOIN lineas_carta ON plato.id_plato=lineas_carta.id_plato JOIN formato ON lineas_carta.id_formato=formato.id_formato
+        WHERE plato.id_plato=".$_POST["id_plato"].";";
+
+        $result = $conn->query($sql);
+
+        $arrFormato=[];
+        // bool para ver si se ya esta impreso el plato
+        $impreso=false;
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+              if (!$impreso) {
+                echo "
+                <input type='hidden' value='".$row["id_plato"]."' name='id_plato' id='id_plato'>
+                <label for='nombre'>Nombre </label>
+                <input type='text' value='".$row["nombre"]."' name='nombre'  id='nombre' class='form-control'>
+                <label for='descripcion'>Descripción </label>
+                <textarea name='descripcion' id='descripcion' class='form-control'>".$row["descripcion"]."</textarea>";
+                $impreso=true;
+              }
+              // asignamos la seccion a una variable para usarla en el select
+              $seccion1=$row["id_seccion"];
+              // lista de formatos para ese plato
+              $arrFormato[] = ["id_formato"=>$row["id_formato"], "precio"=>$row["precio"], "id_lineas_carta"=>$row["id_lineas_carta"]];
+            }
+          } else {
+            echo "0 results";
+          }
+          $conn->close();
+          // echo "<pre>";
+          // var_dump($arrFormato);
+          // echo "</pre>";
+        ?>
+        <label for="id_seccion">Sección </label>
+        <select name="id_seccion" id="id_seccion" class='form-select'>
+        <?php
+        include("conexion.php");
+        $sql = "SELECT id_seccion, nombre FROM seccion";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+            if ($seccion1==$row["id_seccion"]) {
+              echo "<option value='".$row["id_seccion"]."' selected>".$row["nombre"]."</option>";
+            }else{
+              echo "<option value='".$row["id_seccion"]."'>".$row["nombre"]."</option>";
+            }
+          }
+        } else {
+          echo "0 results";
+        }
+
+        ?>
+        </select>
+        <?php
+
+        $sql = "SELECT * FROM formato;";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+            // lista de todos los formatos
+            $arrFormatos[] = ["id_formato"=>$row["id_formato"], "nombre"=>$row["nombre"]];
+        } 
+        }else {
+          echo "0 results";
+        }
+        // echo "<pre>";
+        // var_dump($arrFormatos);
+        // echo "</pre>";
+        $conn->close();
+
+        foreach ($arrFormato as $key => $value1) {
+          echo "
+          <div class='form-group row'>
+            <div class='col'>
+              <select name='formato[".$key."]' id='formato' class='form-control form-select'>";
+          
+          foreach ($arrFormatos as $key2 => $value2) {
+            ?>
+                <option value='<?php echo $value2["id_formato"]; ?>' <?php if($value1["id_formato"]==$value2["id_formato"]){echo "selected";} ?>><?php echo $value2["nombre"]; ?></option>
+            <?php
+          }
+          echo "
+              </select>
+            </div>
+            <div class='col'>
+              <input type='number' step='0.01' name='precio[".$key."]' id='precio' value='".$value1["precio"]."' class='form-control'>
+            </div>
+            <input type='hidden' name='id_lineas_carta[".$key."]' value='".$value1["id_lineas_carta"]."'>
+          </div>";
+
+        }
+
+        echo "<a href='url.php?id_plato=".$_POST["id_plato"]."' class='btn btn-primary'>Nuevo formato</a>"
+        ?>
+        <input type="submit" class='btn btn-primary' value="Enviar">
+      </form>
+      <?php
+      echo "<pre>";
+      var_dump($arrFormato);
+      echo "</pre>";
+      ?>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
   <script>
     $(document).ready(function() {
 
       // array de php a js
+      // todos los formatos
       const formatos = 
       <?php echo json_encode($arrFormatos); ?>;
       // console.log(formatos);
       // console.log(Object.keys(formatos).length);
 
+      // los formatos asignados
       const formato = 
       <?php echo json_encode($arrFormato); ?>;
       // console.log(formato);
       // console.log(Object.keys(formato).length);
 
+      // array que guarda los cambios
       const arrCambios = formato;
+      // Array que guarda los disabled anteriores
+      const anterior = [];
 
-      // Hacemos disable en los option que no sean los que seleccionamos
+      // disable en los option que no sean los que seleccionamos
       for (const iterator in formato) {
-        
+
         $('select[name="formato['+iterator+']"]').change(function() {
+          anterior[iterator] = arrCambios[iterator]["id_formato"];
+
           arrCambios[iterator]["id_formato"]=$('select[name="formato['+iterator+']"]').val();
-          console.log(arrCambios);
+          
           for (const iterator2 in arrCambios) {
-            console.log(" a "+iterator+" | b "+iterator2);
+            // console.log(" a "+iterator+" | b "+iterator2);
             if (iterator!=iterator2) {
+              
               $('select[name="formato['+iterator2+']"]').children('option[value="'+arrCambios[iterator]["id_formato"]+'"]').attr("disabled",true);
+              $('select[name="formato['+iterator2+']"]').children('option[value="'+anterior[iterator]+'"]').attr("disabled",false);
+
             }
           }
         });
+
       }
 
     });
