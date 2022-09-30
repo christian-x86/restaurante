@@ -1,30 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <pre>    
-    <?php
-    var_dump($_POST);
-    ?>
-    </pre>
-    <?php
-    // echo $_POST['formato'][0].", ";
-    // echo $_POST['precio'][0]."<br>";
-    // echo $_POST['formato'][1].", ";
-    // echo $_POST['precio'][1];
+<?php require_once('header.php'); ?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <?php
 
-    foreach ($_POST as $key => $value) {
-        echo $key."<br>";
-        foreach ($value as $key1 => $value1) {
-            echo "- ".$key1.": ".$value1."<br>";
-        }
-    }
-    ?>
+            include('conexion.php');
+            
+            $formato=$_POST["formato"];
+            $precio=$_POST["precio"];
+            $id_plato=$_POST["id_plato"];
+
+            $sql = "INSERT INTO lineas_carta (id_formato, precio, id_plato) VALUES (?, ?, ?)"; // SQL with parameters
+            $stmt = $conn->prepare($sql); 
+            $stmt->bind_param("sdi", $formato, $precio, $id_plato);
+
+            $se=$stmt->execute();
+            ?>
+            <p>
+            <?php
+            if (false===$se) {
+            die("execute() failed: ". htmlspecialchars($stmt->error));
+            }else{
+            echo "New record created  successfully.";
+            }
+            
+            $stmt->close();
+            ?>
+            </p>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
     
 </body>
 </html>

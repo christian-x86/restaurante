@@ -1,127 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <?php
-    include("conexion.php");
-    $sql = "SELECT id_formato, nombre FROM formato";
-    $result = $conn->query($sql);
-
-    $resultado=[];
-
-    if ($result->num_rows > 0) {
-    // output data of each row
-        while($row = $result->fetch_assoc()) {
-            $resultado[$row["id_formato"]]= $row["nombre"];
-        }
-    } else {
-    echo "0 results";
-    }
-
-    $conn->close();
-
-    // var_dump($resultado);
-    ?>
-    <form action="admin_lc_insertar.php" method="post" id="form1">
-        <select name="formato[]" id="formato[0]" class="formato" onchange="cambia1()">
+<?php require_once('header.php'); ?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <?php
-            foreach ($resultado as $key => $value) {
-                echo "<option value='".$key."'>".$value."</option>";
+            include("conexion.php");
+            $sql = "SELECT * FROM lineas_carta WHERE id_plato=".$_GET["id_plato"].";";
+            $result = $conn->query($sql);
+
+            $arrActivos=[];
+            
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    array_push($arrActivos,$row["id_formato"]);
+                }
+                // sin while
+                // $row = $result -> fetch_all(MYSQLI_ASSOC);
+            } else {
+            echo "0 results";
             }
+
+            $sql = "SELECT id_formato, nombre FROM formato;";
+            $result = $conn->query($sql);
+
+            $resultado=[];
+
+            if ($result->num_rows > 0) {
+            // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $resultado[$row["id_formato"]]= $row["nombre"];
+                }
+            } else {
+            echo "0 results";
+            }
+
+            $conn->close();
+
             ?>
-        </select>
-        <input type="number" name="precio[]" step="0.01" placeholder="precio" id="precio">
-        <input type="submit" value="Enviar"  id="env">
-    </form>
-    <button onClick="anadir_input()">+</button>
-    <button onClick="quitar_input()">-</button>
-
+            <form action="admin_lc_insertar.php" method="post" id="form1">
+                <h2>Nuevo formato</h2>
+                <div class='form-group row'>
+                    <div class='col'>
+                        <select name="formato" id="formato" class="formato form-select">
+                            <?php
+                            foreach ($resultado as $key => $value) {
+                                ?>
+                                <option value='<?php echo $key; ?>' <?php if(in_array($key, $arrActivos)){echo "disabled";} ?>><?php echo $value; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class='col'>
+                        <input type="number" name="precio" step="0.01" placeholder="precio" id="precio" class="form-control">
+                    </div>
+                </div>
+                <input type='hidden' name='id_plato' value='<?php echo $_GET["id_plato"];?>'>
+                <input type="submit" value="Enviar"  id="env" class="form-control btn btn-primary">
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
     <script type="text/javascript">
-        
-        // pasar array de php a js
-        const passedArray = 
-        <?php echo json_encode($resultado); ?>;
-        console.log(passedArray);
-        // console.log(Object.keys(passedArray).length);
-        
-        var cont = 1;
-
-        function anadir_input() {
-            
-            
-            var formato_select = document.createElement("select");
-            formato_select.setAttribute("name", "formato[]");
-            formato_select.setAttribute("id", "formato["+cont+"]");
-            formato_select.setAttribute("onchange", "cambia1()");
-            cont++;
-            
-            for (let index = 1; index <= Object.keys(passedArray).length; index++) {
-                const element = passedArray[index];
-
-                var formato_option = document.createElement("option");
-                formato_option.setAttribute("value", index);
-                formato_option.innerHTML=element;
-                
-                formato_select.appendChild(formato_option);
-            }
-
-            var precio = document.createElement("input");
-            precio.setAttribute("type", "number");
-            precio.setAttribute("name", "precio[]");
-            precio.setAttribute("step", "0.01");
-            precio.setAttribute("placeholder", "precio");
-            precio.setAttribute("id", "precio");
-
-            // evitar que se creen mas entradas que opciones hay
-            var ele = document.getElementById('form1');
-            var lastEle = ele[ ele.length-2 ];
-            if (!((ele.length-1)/2>Object.keys(passedArray).length-1)) {
-                
-                document.getElementById("form1").appendChild(formato_select);
-                
-                document.getElementById("form1").appendChild(precio);
-    
-                // desplaza el submit al final
-                document.querySelector("#form1").appendChild(document.getElementById("env"));
-            }
-        }
-
-        function quitar_input(){
-            // Elimina los 2 ultimos campos
-            var ele = document.getElementById('form1');
-            var lastEle = ele[ ele.length-2 ];
-            var lastEle2 = ele[ ele.length-3 ];
-            // evita que se eliminen los dos ultimos campos
-            if (ele.length>3) {
-                lastEle.parentNode.removeChild(lastEle);
-                lastEle2.parentNode.removeChild(lastEle2);
-            }
-        }
-
-        function cambia1(){
-            // console.log(document.getElementById("formato[0]").value);
-            // console.log(document.getElementById("formato[1]").value);
-            // console.log(document.getElementById("formato[2]").value);
-
-            // document.getElementById("formato[0]").children[2].setAttribute("disabled", true);
-
-            // document.getElementById("formato[0]").children[document.getElementById("formato[0]").value].setAttribute("disabled", true);
-            // document.getElementById("formato[1]").children[document.getElementById("formato[1]").value].setAttribute("disabled", true);
-            // document.getElementById("formato[2]").children[document.getElementById("formato[2]").value].setAttribute("disabled", true);
-
-            // console.log(cont);
-            for (let index = 0; index < cont; index++) {
-                console.log(document.getElementById("formato["+index+"]").value);
-
-                // document.getElementById("formato[1]").children[1].setAttribute("disabled", true);
-                document.getElementById("formato["+index+"]").children[1].setAttribute("disabled", true);
-            }
-        }
 
     </script>
 </body>
