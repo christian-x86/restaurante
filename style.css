@@ -1,6 +1,7 @@
-form{
-    padding: 2em;
-}
 .form-control, .form-select{
     margin:7px 0px 20px 0px;
+}
+
+.container{
+    margin: 5% auto 10% auto;
 }

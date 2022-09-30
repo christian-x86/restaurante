@@ -23,6 +23,7 @@
             die("execute() failed: ". htmlspecialchars($stmt->error));
             }else{
             echo "New record created  successfully.";
+            header('refresh:3 admin_muestra.php');
             }
             
             $stmt->close();

@@ -1,4 +1,5 @@
 <?php
+require_once('header.php');
 include('conexion.php');
 
 $nombre=$_POST["nombre"];
@@ -12,26 +13,29 @@ $stmt->bind_param("ssi", $nombre, $descripcion, $seccion);
 $se=$stmt->execute();
 
 ?>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+<?php
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin. Inserta Plato</title>
-</head>
-<body>
-    <p>
-      <?php
       if (false===$se) {
         die("execute() failed: ". htmlspecialchars($stmt->error));
       }else{
-        echo "New record created  successfully.";
+        echo "<p>New record created successfully.</p>";
+        // última id insertada
+        $sql1= "SELECT LAST_INSERT_ID();";
+        $result = $conn->query($sql1);
+        $row = $result -> fetch_all(MYSQLI_ASSOC);
+        $id_plato = $row[0]["LAST_INSERT_ID()"];
+        echo "<a href='admin_lc_form_insertar.php?id_plato=".$id_plato."' class='btn btn-primary'>Nuevo formato</a>";
+        $stmt->close();
       }
-      
-      $stmt->close();
       ?>
-    </p>
+
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
 </body>
 </html>

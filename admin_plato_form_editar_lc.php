@@ -1,10 +1,6 @@
 <?php require_once('header.php'); ?>
-<div class="container">
-  <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+      <h2>Detalles del plato</h2>
       <form action="admin_plato_editar_lc.php" method="post" class="form-group">
-        <h2>Detalles del plato</h2>
         <?php
         include("conexion.php");
 
@@ -112,7 +108,7 @@
             <a href='admin_lc_form_insertar.php?id_plato=<?php echo $_POST["id_plato"]; ?>' <?php if (count($arrFormatos)==count($arrFormato)) {echo "style='pointer-events: none';";} ?> class='btn btn-primary form-control' id="js_a_btn">Nuevo formato</a>
           </div>
           <div class='col-5'>
-            <input type="submit" class='btn btn-primary form-control' value="Enviar">
+            <input type="submit" class="btn btn-primary form-control" value="Enviar">
           </div>
         </div>
       </form>
