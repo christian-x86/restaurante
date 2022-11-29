@@ -1,0 +1,7 @@
+https://superuser.com/questions/1545299/batch-file-to-move-folders-starting-with-specific-name-to-a-new-created-folder
+
+https://superuser.com/questions/1186839/using-wildcard-to-address-a-directory-in-cmd
+
+https://superuser.com/questions/1499343/does-copy-command-not-accept-variable-on-command-line
+
+https://stackoverflow.com/questions/36723175/substring-of-a-variable-in-batch
